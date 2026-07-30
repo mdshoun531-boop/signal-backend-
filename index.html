@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Signal Engine</title>
+    
+    <!-- iPhone iOS App (PWA) Setup -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Pro Signal">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2422/2422796.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+        
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-2xl font-bold text-emerald-400">PRO SIGNAL ENGINE</h1>
+            <p class="text-xs text-slate-400 mt-1">Live Quantitative Market Analysis</p>
+        </div>
+
+        <!-- Selection Controls -->
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Select Currency Pair (Quotex OTC Supported)</label>
+                <select id="pairSelect" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm text-white focus:outline-none">
+                    <option value="EUR/USD (OTC)">EUR/USD (OTC)</option>
+                    <option value="GBP/USD (OTC)">GBP/USD (OTC)</option>
+                    <option value="USD/JPY (OTC)">USD/JPY (OTC)</option>
+                    <option value="AUD/CAD (OTC)">AUD/CAD (OTC)</option>
+                    <option value="EUR/JPY (OTC)">EUR/JPY (OTC)</option>
+                    <option value="USD/CHF (OTC)">USD/CHF (OTC)</option>
+                    <option value="NZD/USD (OTC)">NZD/USD (OTC)</option>
+                    <option value="GBP/JPY (OTC)">GBP/JPY (OTC)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Select Timeframe</label>
+                <select id="tfSelect" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-sm text-white focus:outline-none">
+                    <option value="1m">1 Minute</option>
+                    <option value="3m">3 Minutes</option>
+                    <option value="5m">5 Minutes</option>
+                    <option value="10m">10 Minutes</option>
+                    <option value="15m">15 Minutes</option>
+                    <option value="1h">1 Hour</option>
+                </select>
+            </div>
+
+            <button onclick="fetchSignal()" id="btnSignal" class="w-full bg-emerald-500 hover:bg-emerald-600 font-semibold py-3 rounded-lg text-slate-950 transition-all duration-200">
+                GET LIVE SIGNAL
+            </button>
+        </div>
+
+        <!-- Signal Results Card -->
+        <div id="resultCard" class="hidden bg-slate-950 border border-slate-800 rounded-xl p-5 text-center space-y-3">
+            <div id="signalBadge" class="text-2xl font-black uppercase tracking-wider py-2 rounded-lg">
+                ---
+            </div>
+            
+            <div class="flex justify-between text-xs text-slate-400 border-t border-b border-slate-800 py-2">
+                <span>Accuracy: <strong id="accuracyVal" class="text-white">--</strong></span>
+                <span>Pair: <strong id="pairVal" class="text-white">--</strong></span>
+            </div>
+
+            <p id="reasonVal" class="text-xs text-slate-400 italic">--</p>
+        </div>
+
+    </div>
+
+    <script>
+        async function fetchSignal() {
+            const pair = document.getElementById('pairSelect').value;
+            const timeframe = document.getElementById('tfSelect').value;
+            const btn = document.getElementById('btnSignal');
+            const card = document.getElementById('resultCard');
+            const badge = document.getElementById('signalBadge');
+            
+            btn.innerText = "Analyzing Live Market...";
+            btn.disabled = true;
+
+            // আপনার সঠিক রেন্ডার ব্যাকএন্ড লিংক কানেক্ট করা হয়েছে
+            const backendURL = "https://my-signal-bot-3p0u.onrender.com/api/get-signal";
+
+            try {
+                const response = await fetch(backendURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pair, timeframe })
+                });
+
+                const data = await response.json();
+
+                card.classList.remove('hidden');
+                document.getElementById('pairVal').innerText = data.pair + " (" + data.timeframe + ")";
+                document.getElementById('accuracyVal').innerText = data.accuracy;
+                document.getElementById('reasonVal').innerText = data.analysis;
+
+                if (data.signal.includes("CALL")) {
+                    badge.innerText = data.signal;
+                    badge.className = "text-2xl font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 py-2 rounded-lg";
+                } else if (data.signal.includes("PUT")) {
+                    badge.innerText = data.signal;
+                    badge.className = "text-2xl font-black bg-rose-500/10 text-rose-400 border border-rose-500/30 py-2 rounded-lg";
+                } else {
+                    badge.innerText = "AVOID (NO SIGNAL)";
+                    badge.className = "text-2xl font-black bg-amber-500/10 text-amber-400 border border-amber-500/30 py-2 rounded-lg";
+                }
+
+            } catch (err) {
+                alert("Error connecting to Python backend engine. Check backend server.");
+            } finally {
+                btn.innerText = "GET LIVE SIGNAL";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
