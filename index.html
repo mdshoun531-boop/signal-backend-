@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotex Live & OTC Market Technical Analysis Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 15px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #38bdf8;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* TradingView Widget Container */
+        .widget-container {
+            height: 420px;
+            width: 100%;
+        }
+
+        /* Screener / Market Table */
+        .screener-container {
+            height: 550px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📊 Live Quotex & OTC Market Analysis Hub</h1>
+        <p>লাইভ সিগন্যাল, স্ট্রং টেকনিক্যাল সামারি এবং কোটেক্সের সকল পপুলার পেয়ার</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <!-- 1. Quotex & OTC Market Overview / Pair Selector -->
+        <div class="card" style="grid-column: span 1 / -1;">
+            <div class="card-title">
+                <span>🌐 Quotex OTC & Major Pairs List</span>
+                <span style="font-size: 12px; color: #38bdf8;">All Markets Active</span>
+            </div>
+            <div class="widget-container" style="height: 500px;">
+                <!-- TradingView Market Overview Widget -->
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                    {
+                    "colorTheme": "dark",
+                    "dateRange": "1D",
+                    "showChart": true,
+                    "locale": "en",
+                    "largeChartUrl": "",
+                    "isTransparent": true,
+                    "showSymbolLogo": true,
+                    "showFloatingTooltip": true,
+                    "width": "100%",
+                    "height": "100%",
+                    "plotLineColorGrowing": "rgba(34, 197, 94, 1)",
+                    "plotLineColorFalling": "rgba(239, 68, 68, 1)",
+                    "gridLineColor": "rgba(51, 65, 85, 0.5)",
+                    "scaleFontColor": "rgba(148, 163, 184, 1)",
+                    "belowLineBackgroundColor": "rgba(56, 189, 248, 0.12)",
+                    "belowLineBorderColor": "rgba(56, 189, 248, 0.4)",
+                    "symbolActiveHandleColor": "rgba(56, 189, 248, 1)",
+                    "tabs": [
+                        {
+                        "title": "Quotex OTC / Asia Pairs",
+                        "symbols": [
+                            {"s": "FX:NZDUSD", "d": "NZD/USD (OTC)"},
+                            {"s": "FX:NZDJPY", "d": "NZD/JPY (OTC)"},
+                            {"s": "FX:USDBDT", "d": "USD/BDT (OTC)"},
+                            {"s": "FX:USDIDR", "d": "USD/IDR (OTC)"},
+                            {"s": "FX:USDDZD", "d": "USD/DZD (OTC)"},
+                            {"s": "FX:USDINR", "d": "USD/INR (OTC)"},
+                            {"s": "FX:AUDNZD", "d": "AUD/NZD (OTC)"},
+                            {"s": "FX:USDBRL", "d": "USD/BRL (OTC)"},
+                            {"s": "FX:GBPNZD", "d": "GBP/NZD (OTC)"},
+                            {"s": "FX:USDNGN", "d": "USD/NGN (OTC)"},
+                            {"s": "FX:USDCOP", "d": "USD/COP (OTC)"},
+                            {"s": "FX:USDPKR", "d": "USD/PKR (OTC)"},
+                            {"s": "FX:CADCHF", "d": "CAD/CHF (OTC)"},
+                            {"s": "FX:USDEGP", "d": "USD/EGP (OTC)"},
+                            {"s": "FX:USDPHP", "d": "USD/PHP (OTC)"},
+                            {"s": "FX:USDCHF", "d": "USD/CHF (OTC)"},
+                            {"s": "FX:USDARS", "d": "USD/ARS (OTC)"},
+                            {"s": "FX:NZDCAD", "d": "NZD/CAD (OTC)"}
+                        ]
+                        },
+                        {
+                        "title": "Quotex Major Pairs",
+                        "symbols": [
+                            {"s": "FX:EURUSD", "d": "EUR/USD"},
+                            {"s": "FX:GBPUSD", "d": "GBP/USD"},
+                            {"s": "FX:USDJPY", "d": "USD/JPY"},
+                            {"s": "FX:USDCAD", "d": "USD/CAD"},
+                            {"s": "FX:AUDUSD", "d": "AUD/USD"},
+                            {"s": "FX:EURGBP", "d": "EUR/GBP"},
+                            {"s": "FX:GBPJPY", "d": "GBP/JPY"},
+                            {"s": "FX:EURJPY", "d": "EUR/JPY"}
+                        ]
+                        },
+                        {
+                        "title": "Crypto & Metals",
+                        "symbols": [
+                            {"s": "BINANCE:BTCUSDT", "d": "BTC/USDT"},
+                            {"s": "BINANCE:ETHUSDT", "d": "ETH/USDT"},
+                            {"s": "TVC:GOLD", "d": "Gold (XAUUSD)"},
+                            {"s": "TVC:SILVER", "d": "Silver"}
+                        ]
+                        }
+                    ]
+                    }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Technical Analysis Meter 1 (EUR/USD / Major) -->
+        <div class="card">
+            <div class="card-title">📈 EUR/USD Technical Gauge</div>
+            <div class="widget-container">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                    {
+                    "interval": "1m",
+                    "width": "100%",
+                    "isTransparent": true,
+                    "height": "100%",
+                    "symbol": "FX:EURUSD",
+                    "showIntervalTabs": true,
+                    "displayMode": "single",
+                    "locale": "en",
+                    "colorTheme": "dark"
+                    }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Technical Analysis Meter 2 (USD/INR / OTC) -->
+        <div class="card">
+            <div class="card-title">📉 USD/INR Analysis Gauge</div>
+            <div class="widget-container">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                    {
+                    "interval": "1m",
+                    "width": "100%",
+                    "isTransparent": true,
+                    "height": "100%",
+                    "symbol": "FX:USDINR",
+                    "showIntervalTabs": true,
+                    "displayMode": "single",
+                    "locale": "en",
+                    "colorTheme": "dark"
+                    }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Forex Screener (Live Market Scanner) -->
+        <div class="card" style="grid-column: span 1 / -1;">
+            <div class="card-title">🔍 Real-time Market Screener & Buy/Sell Signals</div>
+            <div class="screener-container">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                    {
+                    "width": "100%",
+                    "height": "100%",
+                    "defaultColumn": "overview",
+                    "defaultScreen": "general",
+                    "market": "forex",
+                    "showToolbar": true,
+                    "colorTheme": "dark",
+                    "locale": "en"
+                    }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
